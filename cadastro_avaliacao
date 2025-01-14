@@ -1,0 +1,69 @@
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+from selenium.webdriver.chrome.options import Options
+
+def preencher_e_enviar_formulario(dados_formulario):
+    
+    chrome_options = Options()
+    chrome_options.add_argument("--ignore-certificate-errors")
+    driver = webdriver.Chrome(options=chrome_options)
+
+    url = "https://10.10.35.17/ti/cedae/pesquisa.html"
+    driver.get(url)
+
+    try:
+        
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "data_hora"))
+        )
+
+        
+        for campo_id, valor in dados_formulario.items():
+            campo = driver.find_element(By.ID, campo_id)
+            campo.clear()  
+            campo.send_keys(valor)  
+
+        data_hora = dados_formulario["data_hora"]
+        driver.execute_script(f"document.getElementById('data_hora').value = '{data_hora}';")
+
+        submit_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        submit_button.click()
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "alert-message"))
+        )
+        print(f"Formulário enviado com sucesso para a data {data_hora}!")
+    except Exception as e:
+        print(f"Erro durante o envio do formulário: {e}")
+    finally:
+        
+        driver.quit()
+
+def processar_planilha_e_preencher_formulario(arquivo_excel):
+    
+    df = pd.read_excel(arquivo_excel)
+    df['Data_fim'] = pd.to_datetime(df['Data_fim'], unit='s').dt.strftime('%Y-%m-%dT%H:%M:%S')
+    
+    for index, row in df.iterrows():
+        dados_formulario = {
+            "data_hora": row["Data_fim"],  # Ajuste conforme o nome da coluna na planilha
+            "avaliado": row["Avaliado"],  # Ajuste conforme o nome da coluna na planilha
+            "avaliador": row["Numero (Avaliador)"],  # Ajuste conforme o nome da coluna na planilha
+            "p1": "0",  # Ajuste conforme o nome da coluna na planilha
+            "p2": "0",  # Ajuste conforme o nome da coluna na planilha
+            "p3": "0",  # Ajuste conforme o nome da coluna na planilha
+            "tipo": "DESISTIU"  # Ajuste conforme o nome da coluna na planilha
+        }
+        print(dados_formulario)
+        # Preencher e enviar o formulário
+        preencher_e_enviar_formulario(dados_formulario)
+
+# Caminho do arquivo Excel
+arquivo_excel = "NumerosPesquisaSAC_Ausentes_08012025.xlsx"
+
+# Iniciar o processo
+processar_planilha_e_preencher_formulario(arquivo_excel)
