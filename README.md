@@ -5,6 +5,8 @@ Nesse período, para que os registros não fossem perdidos, todas as avaliaçõe
 
 Este script elimina completamente essa tarefa manual. Ele lê os dados diretamente da planilha e os insere na página web, garantindo a integridade dos registros e otimizando drasticamente o tempo da equipe.
 
+Limitação: As avaliações exportadas para o excel não indicavam as notas de avaliação e o tipo, portanto foi recomendado colocar valores fixos ( indicados no fim do read.me ).
+
 ## Funcionalidades
 Leitura de Dados: Extrai informações de planilhas Excel (.xlsx) de forma automática.
 Automação Web: Utiliza Selenium para navegar e preencher formulários em uma página web.
