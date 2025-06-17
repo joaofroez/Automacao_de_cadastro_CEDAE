@@ -67,6 +67,7 @@ Exemplo da estrutura da planilha:
 | 1673183100 | 21912345678 | 1002 |
 
 Adicione o arquivo .xlsx no mesmo endereço de caminho do script.
+
 Execute o script:
 
 Certifique-se de que você está conectado à rede da CEDAE.
