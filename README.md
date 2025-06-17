@@ -66,7 +66,7 @@ Exemplo da estrutura da planilha:
 | 1673182800 | 21987654321 | 1001 |
 | 1673183100 | 21912345678 | 1002 |
 
-Exportar para as Planilhas
+Adicione o arquivo .xlsx no mesmo endereço de caminho do script.
 Execute o script:
 
 Certifique-se de que você está conectado à rede da CEDAE.
@@ -74,8 +74,9 @@ Abra o terminal, navegue até a pasta do projeto e execute o comando:
 <!-- end list -->
 
 Bash
-
+```
 python cadastro_avaliacao.py
+```
 Acompanhe o processo:
 
 O script abrirá uma janela do Chrome e começará a preencher os formulários. Você verá mensagens de status no terminal para cada registro processado.
