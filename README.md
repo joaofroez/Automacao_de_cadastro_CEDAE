@@ -5,12 +5,13 @@ Nesse período, para que os registros não fossem perdidos, todas as avaliaçõe
 
 Este script elimina completamente essa tarefa manual. Ele lê os dados diretamente da planilha e os insere na página web, garantindo a integridade dos registros e otimizando drasticamente o tempo da equipe.
 
-##✨ Funcionalidades
+## Funcionalidades
 Leitura de Dados: Extrai informações de planilhas Excel (.xlsx) de forma automática.
 Automação Web: Utiliza Selenium para navegar e preencher formulários em uma página web.
 Processamento em Lote: Cadastra múltiplas avaliações em sequência, uma para cada linha da planilha.
 Feedback de Execução: Exibe no console o status de envio de cada formulário, informando sucessos e erros.
-##🔧 Pré-requisitos
+
+## Pré-requisitos
 Antes de executar o script, garanta que você tenha o seguinte instalado:
 
 - Python 3
@@ -21,12 +22,12 @@ Antes de executar o script, garanta que você tenha o seguinte instalado:
 - pandas 2.2.3
 - openpyxl 3.1.5
 
-⚙️ Exemplo de uso caso fossemos usar o código no servidor da CEDAE.
+### Exemplo de uso caso fossemos usar o código no servidor da CEDAE.
 Clone o repositório:
 
 Bash
 ```
-git clone https://github.com/joaofroez/nome-do-repositorio.git
+git clone https://github.com/joaofroez/nome-do-repositorio.git](https://github.com/joaofroez/Automacao_de_cadastro_CEDAE.git
 cd nome-do-repositorio
 Crie um ambiente virtual (recomendado):
 ```
@@ -44,14 +45,16 @@ pip install -r requirements.txt
 ```
 Se você não tiver um arquivo requirements.txt, crie um com o seguinte conteúdo:
 
-pandas==2.2.3
-selenium==4.27.1
-openpyxl==3.1.5
+- pandas==2.2.3
+- selenium==4.27.1
+- openpyxl==3.1.5
+  
 Configure o ChromeDriver:
 
 Baixe o ChromeDriver compatível com sua versão do Chrome.
 Coloque o arquivo executável (chromedriver.exe no Windows) na mesma pasta do script cadastro_avaliacao.py ou em um diretório que esteja no PATH do seu sistema.
-▶️ Como Usar
+
+### Como Usar
 Prepare sua planilha:
 
 Crie um arquivo Excel com o nome NumerosPesquisaSAC_Ausentes_08012025.xlsx (ou altere o nome do arquivo no final do script cadastro_avaliacao.py).
@@ -81,21 +84,23 @@ O script pode ser facilmente adaptado para diferentes necessidades:
 
 Arquivo de Entrada: Para usar um arquivo Excel com outro nome, altere a variável arquivo_excel no final do script:
 
-Python
+### Python
 
 # Caminho do arquivo Excel
 arquivo_excel = "outro_arquivo.xlsx"
 Valores Fixos no Formulário: Os valores para as perguntas (p1, p2, p3) e o tipo da avaliação estão definidos como fixos no código. Para alterá-los, modifique o dicionário dados_formulario dentro da função processar_planilha_e_preencher_formulario:
 
 Python
-```
+```python
 dados_formulario = {
-    # ... outros campos
-    "p1": "10",
-    "p2": "10",
-    "p3": "10",
-    "tipo": "REALIZADA"
-}
+            "data_hora": row["Data_fim"],  # Ajuste conforme o nome da coluna na planilha
+            "avaliado": row["Avaliado"],  # Ajuste conforme o nome da coluna na planilha
+            "avaliador": row["Numero (Avaliador)"],  # Ajuste conforme o nome da coluna na planilha
+            "p1": "0",  # Ajuste conforme o nome da coluna na planilha
+            "p2": "0",  # Ajuste conforme o nome da coluna na planilha
+            "p3": "0",  # Ajuste conforme o nome da coluna na planilha
+            "tipo": "DESISTIU"  # Ajuste conforme o nome da coluna na planilha
+        }
 ```
 ⚠️ Observações Importantes
 Rede Interna: Este script foi projetado para acessar um sistema no endereço https://10.10.35.17, que só é acessível pela rede interna da CEDAE.
