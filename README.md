@@ -27,7 +27,7 @@ Clone o repositório:
 
 Bash
 ```
-git clone https://github.com/joaofroez/nome-do-repositorio.git](https://github.com/joaofroez/Automacao_de_cadastro_CEDAE.git
+git clone https://github.com/joaofroez/Automacao_de_cadastro_CEDAE.git
 cd nome-do-repositorio
 Crie um ambiente virtual (recomendado):
 ```
